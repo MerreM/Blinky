@@ -12,7 +12,7 @@ from PIL import Image
 threshold = 10
 sensitivity = 20
 forceCapture = True
-forceCaptureTime = 60 * 60 # Once an hour
+forceCaptureTime = 60 * 0.5 # Once an hour
 
 # File settings
 saveWidth = 1280
@@ -40,8 +40,13 @@ def saveImage(width, height, diskSpaceToReserve):
 
 # Keep free space above given level
 def keepDiskSpaceFree(bytesToReserve):
-    if (getFreeSpace() < bytesToReserve): for filename in sorted(os.listdir(".")): if filename.startswith("capture") and filename.endswith(".jpg"): os.remove(filename) print "Deleted %s to avoid filling disk" % filename if (getFreeSpace() > bytesToReserve):
-    return
+    if (getFreeSpace() < bytesToReserve):
+        for filename in sorted(os.listdir(".")):
+            if filename.startswith("capture") and filename.endswith(".jpg"):
+                os.remove(filename)
+                print "Deleted %s to avoid filling disk" % filename
+    if (getFreeSpace() > bytesToReserve):
+        return
 
 # Get available disk space
 def getFreeSpace():
