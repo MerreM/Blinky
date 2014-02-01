@@ -1,8 +1,12 @@
+import io
+import picamera
+from PIL import Image
+import time
 
 def imageFromStream(stream):
         stream.seek(0)
         image = Image.open(stream)
-        buff = image.load()
+        buff = image.load()	
         return image, buff
 
 
@@ -12,9 +16,8 @@ def main():
         try:
             camera.resolution = camera.MAX_IMAGE_RESOLUTION
             camera.start_preview()
-            time.sleep(2)
             camera.capture_continuous(stream,format="jpeg")
-            imageFromStream(stream)    
+            imageFromStream(stream)
         finally:
             camera.stop_preview()
 
@@ -38,3 +41,6 @@ def checkForDifference(image1,buffer1,image2,buffer2):
             # Swap comparison buffers
     image1 = image2
     buffer1 = buffer2
+
+if __name__ == "__main__":
+	main()

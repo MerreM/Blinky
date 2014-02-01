@@ -10,8 +10,8 @@ from PIL import Image
 # Sensitivity (how many changed pixels before capturing an image)
 # ForceCapture (whether to force an image to be captured every forceCaptureTime seconds)
 threshold = 10
-sensitivity = 20
-forceCapture = True
+sensitivity = 40
+forceCapture = False
 forceCaptureTime = 60 * 0.5 # Once an hour
 
 # File settings
@@ -79,6 +79,7 @@ while (True):
 
             # Save an image if pixels changed
             if changedPixels > sensitivity:
+		print "pixels changed %s"%change
                 lastCapture = time.time()
                 saveImage(saveWidth, saveHeight, diskSpaceToReserve)
 
